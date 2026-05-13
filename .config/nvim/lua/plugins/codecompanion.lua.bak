@@ -1,0 +1,76 @@
+return {
+  "olimorris/codecompanion.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-telescope/telescope.nvim",
+    "hrsh7th/nvim-cmp",
+  },
+  config = function()
+      require("codecompanion").setup({
+          adapters = {
+              acp = {
+                  copilot_acp = function()
+                      return require("codecompanion.adapters").extend("copilot_acp", {
+                      })
+                  end,
+              },
+          },
+          display = {
+              chat = {
+                  window = {
+                      layout = "vertical",
+                      position = "right",
+                      width = 0.25,
+                      opts = {
+                          winblend = 0,
+                      },
+                  },
+              },
+              diff = {
+                  enabled = true,
+                  threshold_for_chat = 3;
+                  word_highlights = {
+                      additions = true,
+                      deletions = true,
+                  }
+              }
+          },
+          interactions = {
+              chat = {
+                  adapter = {
+                      name = "copilot_acp",
+                  },
+                  opts = {
+                      completion_provider = "cmp",
+                      enabled = true,
+                  },
+                  callbacks = {
+                    ["on_ready"] = {
+                        actions = {
+                            "interactions.background.builtin.chat_make_title",
+                        },
+                        enabled = true,
+                    },
+                  },
+                  editor_context = {
+                      ["buffer"] = {
+                          opts = {
+                              default_params = "diff",
+                          },
+                      },
+                  },
+              },
+              inline = {
+                  name = "copilot_acp",
+              },
+          },
+      })
+
+      vim.keymap.set('n', '<leader>ac','<cmd>CodeCompanionChat Toggle<cr>')
+      vim.keymap.set('v', '<leader>ac','<cmd> CodeCompanionChat Add<cr>')
+      vim.keymap.set({'n','v'}, '<leader>ai','<cmd> CodeCompanion <cr>')
+      vim.keymap.set('n', '<leader>aa', '<cmd> CodeCompanionActions <cr>');
+
+    end
+}
