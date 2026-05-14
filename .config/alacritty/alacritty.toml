@@ -1,4 +1,6 @@
 [general]
+
+import = ["dracula.toml"]
 live_config_reload = true
 
 [window]
@@ -10,6 +12,6 @@ normal = { family = "JetBrainsMonoNerdFontMono", style = "Regular"}
 bold = { family = "JetBrainsMonoNerdFontMono", style = "Bold"}
 italic = { family = "JetBrainsMonoNerdFontMono", style = "Italic"}
 bold_italic = { family = "JetBrainsMonoNerdFontMono", style = "BoldItalic"}
-size = 11.25
+size = 12
 offset = { x = 0, y = 1 }
 
